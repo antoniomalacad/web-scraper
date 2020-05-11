@@ -34,7 +34,7 @@ function Result(props) {
 
     const renderResults = () => {
         const renderImage = () => {
-            return <img src={`data:image/png;charset=utf-8;base64, ${scrape}`} alt="screencap"/>
+            return <img className='png' src={`data:image/png;charset=utf-8;base64, ${scrape}`} alt="screencap"/>
         }
 
         return <div>
