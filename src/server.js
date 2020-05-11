@@ -18,8 +18,8 @@ app.get('/scrape/:url', (req, res) => {
     const scrape = async () => {
         const browser = await puppeteer.launch();
         const page = await browser.newPage();
-        await page.goto(url);
-        const imgStr = await page.screenshot({ encoding: 'base64' });
+        await page.goto(url, {waitUntil: 'networkidle2'});
+        const imgStr = await page.screenshot({ encoding: 'base64', fullPage: true });
         await browser.close();
 
         res.writeHead(200, {
