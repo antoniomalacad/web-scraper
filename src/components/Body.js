@@ -9,7 +9,7 @@ function Body() {
     return <div className='body'>
         {URL === null ? 
             <Form setURL={setURL} setKeyword={setKeyword} /> :
-            <Result setURL={setURL} setKeyword={setKeyword} keyword={keyword} />
+            <Result setURL={setURL} setKeyword={setKeyword} keyword={keyword} url={URL}/>
         }
     </div>
 };

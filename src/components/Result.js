@@ -1,6 +1,19 @@
 import React from 'react';
+import axios from 'axios';
 
 function Result(props) {
+    const scrape = async () => {
+        if (props.url === null) return;
+        axios.get(props.url)
+            .then(res => {
+                console.log(res.data);
+            })
+            .catch(err => {
+                console.error(err);
+            });
+    }
+    scrape();
+
     const handleReset = (e) => {
         e.preventDefault();
         props.setURL(null);
@@ -23,15 +36,15 @@ function Result(props) {
     return <div className='result'>
          Result 
         <br />
-        <>
-            {renderResults()}
-        </>
         <button className='button' onClick={handleReset}>
             Reset
         </button>
         <button className='button' onClick={handleDownload}>
             Download
         </button>
+        <>
+            {renderResults()}
+        </>
     </div>
 };
 
