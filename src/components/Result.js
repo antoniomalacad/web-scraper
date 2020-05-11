@@ -15,7 +15,7 @@ function Result(props) {
     const renderResults = () => {
         return <div>
             <br />
-            {props.keyword  === null ?
+            {props.keyword.length === 0 ?
              "No specified keyword" : `Your keyword is ${props.keyword}`}
         </div>
     }
