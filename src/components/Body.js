@@ -4,11 +4,12 @@ import Result from './Result';
 
 function Body() {
     const [URL, setURL] = useState(null);
+    const [keyword, setKeyword] = useState(null);
 
     return <div className='body'>
         {URL === null ? 
-            <Form setURL={setURL}/> :
-            <Result setURL={setURL}/>
+            <Form setURL={setURL} setKeyword={setKeyword} /> :
+            <Result setURL={setURL} setKeyword={setKeyword} keyword={keyword} />
         }
     </div>
 };

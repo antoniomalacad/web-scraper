@@ -4,6 +4,7 @@ function Result(props) {
     const handleReset = (e) => {
         e.preventDefault();
         props.setURL(null);
+        props.setKeyword(null);
     }
 
     const handleDownload = (e) => {
@@ -12,7 +13,11 @@ function Result(props) {
     }
 
     const renderResults = () => {
-        return <div> Web scraped results go here </div>
+        return <div>
+            <br />
+            {props.keyword  === null ?
+             "No specified keyword" : `Your keyword is ${props.keyword}`}
+        </div>
     }
 
     return <div className='result'>
