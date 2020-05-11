@@ -9,6 +9,8 @@ function Form(props) {
         } else {
             console.log(url.value);
             props.setURL(url.value);
+            const keyword = document.body.getElementsByClassName('key')[0]
+            props.setKeyword(keyword.value);
         };
     };
 
