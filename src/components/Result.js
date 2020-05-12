@@ -2,23 +2,23 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 function Result(props) {
-    const [scrape, setScrape] = useState(null);
+    const [imgScrape, setImgScrape] = useState(null);
 
     useEffect(() => {
         const webScrape = async () => {
             if (props.url === null) return;
             const url = 'http://localhost:8000/scrape/';
-            axios.get(url + `res?url=${props.url}`)
+            axios.get(url + `res?url=https://${props.url}`)
                 .then(res => {
-                    console.log(res.data.toString());
-                    setScrape(res.data.toString());
+                    console.log('scraping');
+                 setImgScrape(res.data.toString());
                 })
                 .catch(err => {
                     console.error(err);
                 });
         }
         webScrape();
-    }, [props.url, setScrape])
+    }, [props.url, setImgScrape])
 
 
     const handleReset = (e) => {
@@ -33,12 +33,24 @@ function Result(props) {
     }
 
     const renderResults = () => {
+        const redirectImage = () => {
+            const w = window.open();
+            setTimeout(()=> {
+                w.document.body.appendChild(w.document.createElement('img'))
+                .src = `data:image/png;base64,${imgScrape}`
+            }, 10);
+        };
+
         const renderImage = () => {
-            return <img className='png' src={`data:image/png;charset=utf-8;base64, ${scrape}`} alt="screencap"/>
+            return (
+                <a href={`data:image/png;base64, ${imgScrape}`} onClick={redirectImage}> 
+                    <img className='png' src={`data:image/png;base64, ${imgScrape}`} alt="screencap" height="20%" width="20%" />
+                </a>)
         }
 
         return <div>
-            {scrape !== null ? renderImage() : <></>}
+            {imgScrape !== null ? renderImage() : <></>}
+            <br />
             <br />
             {props.keyword.length === 0 ?
              "No specified keyword" : `Your keyword is ${props.keyword}`}
@@ -54,7 +66,9 @@ function Result(props) {
         <button className='button' onClick={handleDownload}>
             Download
         </button>
+        <br />
         <>
+            Thumbnail <br />
             {renderResults()}
         </>
     </div>
