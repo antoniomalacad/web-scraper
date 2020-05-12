@@ -8,13 +8,12 @@ function Result(props) {
         const webScrape = async () => {
             if (props.url === null) return;
             const url = 'http://localhost:8000/scrape/';
+            console.log('scraping');
             axios.get(url + `res?url=https://${props.url}`)
                 .then(res => {
-                    console.log('scraping');
+                    console.log('scraping complete');
+                    if (res.data === 'error') return setImgScrape(undefined);
                  setImgScrape(res.data.toString());
-                })
-                .catch(err => {
-                    console.error(err);
                 });
         }
         webScrape();
@@ -44,12 +43,12 @@ function Result(props) {
         const renderImage = () => {
             return (
                 <a href={`data:image/png;base64, ${imgScrape}`} onClick={redirectImage}> 
-                    <img className='png' src={`data:image/png;base64, ${imgScrape}`} alt="screencap" height="20%" width="20%" />
+                    <img className='png' src={`data:image/png;base64, ${imgScrape}`} alt="screencap" height="auto" width="20%" />
                 </a>)
         }
 
         return <div>
-            {imgScrape !== null ? renderImage() : <></>}
+            {imgScrape !== null ? imgScrape !== undefined ? renderImage() : "Site not found" : 'Searching...'}
             <br />
             <br />
             {props.keyword.length === 0 ?
@@ -68,7 +67,6 @@ function Result(props) {
         </button>
         <br />
         <>
-            Thumbnail <br />
             {renderResults()}
         </>
     </div>
