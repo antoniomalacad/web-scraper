@@ -18,16 +18,25 @@ app.get('/scrape/:url', (req, res) => {
     const scrape = async () => {
         const browser = await puppeteer.launch();
         const page = await browser.newPage();
-        await page.goto(url, {waitUntil: 'networkidle2'});
-        const imgStr = await page.screenshot({ encoding: 'base64', fullPage: true });
+        let status, imgStr;
+        await page.goto(url, {waitUntil: 'networkidle2'})
+            .then(res => status = Number(res._headers.status))
+            .catch(err => status = 404);
+        
+        
+        if (status === 200) {
+            imgStr = await page.screenshot({ encoding: 'base64', fullPage: true });
+            res.writeHead(status, {
+                'Content-Type': 'image/png',
+                'Content-Length': imgStr.length
+                });
+            res.end(imgStr);
+        }
+        else {
+            res.send('error');
+        }
+ 
         await browser.close();
-
-        res.writeHead(200, {
-            'Content-Type': 'image/png',
-            'Content-Length': imgStr.length
-          });
-        res.end(imgStr);
-
     };
     scrape();
 });

@@ -5,7 +5,7 @@ function Form(props) {
         e.preventDefault();
         const url = document.body.getElementsByClassName('url')[0];
         if (url.value === "") {
-            window.alert('Please enter a valid url')
+            window.alert('Please enter a url')
         } else {
             props.setURL(url.value);
             const keyword = document.body.getElementsByClassName('key')[0]
