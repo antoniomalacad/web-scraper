@@ -25,7 +25,7 @@ function Form(props) {
             <input className='key' type="text" placeholder="cats" />
         </div>
         <br />
-        <button className='button' onClick={handleSubmit}>Sumbit</button>
+        <button className='button' onClick={handleSubmit}>Submit</button>
      </div>
 }
 

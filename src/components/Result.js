@@ -43,7 +43,7 @@ function Result(props) {
         const renderImage = () => {
             return (
                 <a href={`data:image/png;base64, ${imgScrape}`} onClick={redirectImage}> 
-                    <img className='png' src={`data:image/png;base64, ${imgScrape}`} alt="screencap" height="auto" width="20%" />
+                    <img className='png' src={`data:image/png;base64, ${imgScrape}`} alt="screencap" height="auto" width="10%" />
                 </a>)
         }
 

@@ -25,7 +25,8 @@ app.get('/scrape/:url', (req, res) => {
         
         
         if (status === 200) {
-            imgStr = await page.screenshot({ encoding: 'base64', fullPage: true });
+            await page.setViewport({width: 1000, height: 1000});
+            imgStr = await page.screenshot({ encoding: 'base64' });
             res.writeHead(status, {
                 'Content-Type': 'image/png',
                 'Content-Length': imgStr.length
