@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import loader from '../assets/loader.png';
 
 function Result(props) {
     const [imgScrape, setImgScrape] = useState(null);
@@ -43,12 +44,18 @@ function Result(props) {
         const renderImage = () => {
             return (
                 <a href={`data:image/png;base64, ${imgScrape}`} onClick={redirectImage}> 
-                    <img className='png' src={`data:image/png;base64, ${imgScrape}`} alt="screencap" height="auto" width="10%" />
+                    <img className='thumbnail' src={`data:image/png;base64, ${imgScrape}`} alt="screencap" height="auto" width="10%" />
                 </a>)
+        };
+
+        const renderLoading = () => {
+            return (
+                <img className='loader' src={loader} alt="Searching..." height="auto" width="5%"/>
+            )
         }
 
         return <div>
-            {imgScrape !== null ? imgScrape !== undefined ? renderImage() : "Site not found" : 'Searching...'}
+            {imgScrape !== null ? imgScrape !== undefined ? renderImage() : "Site not found" : renderLoading()}
             <br />
             <br />
             {props.keyword.length === 0 ?
@@ -65,6 +72,7 @@ function Result(props) {
         <button className='button' onClick={handleDownload}>
             Download
         </button>
+        <br />
         <br />
         <>
             {renderResults()}
