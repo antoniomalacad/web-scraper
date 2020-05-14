@@ -59,7 +59,7 @@ function Result(props) {
             <br />
             <br />
             {props.keyword.length === 0 ?
-             "No specified keyword" : `Your keyword is ${props.keyword}`}
+             <></> : `Your keyword is ${props.keyword}`}
         </div>
     };
 
